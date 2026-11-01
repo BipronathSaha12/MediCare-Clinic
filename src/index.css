@@ -1,0 +1,1077 @@
+/* ==========================================================================
+   MediCare Clinic — Front Desk Appointment Dashboard UI Stylesheet
+   Pure CSS adhering strictly to Module-26 tokens and pin specifications
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens & CSS Custom Properties
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Tokens */
+  --bg-page: #F1F5F9;
+  --bg-surface: #FFFFFF;
+  --border-color: #E2E8F0;
+  --primary: #0F766E;
+  --primary-hover: #0D655E;
+  --primary-soft: #CCFBF1;
+  --primary-soft-hover: #B2F5EA;
+  --text-primary: #0F172A;
+  --text-muted: #64748B;
+
+  /* Status Badges */
+  --pending-text: #B45309;
+  --pending-bg: #FEF3C7;
+  --confirmed-text: #1D4ED8;
+  --confirmed-bg: #DBEAFE;
+  --completed-text: #15803D;
+  --completed-bg: #DCFCE7;
+  --cancelled-text: #B91C1C;
+  --cancelled-bg: #FEE2E2;
+
+  /* Danger / System */
+  --danger: #DC2626;
+  --danger-hover: #B91C1C;
+  --danger-soft: #FEE2E2;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Card and Shadows */
+  --card-radius: 12px;
+  --card-padding: 20px;
+  --card-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --card-hover-shadow: 0 4px 10px rgba(15, 23, 42, 0.10);
+
+  /* Element Radii */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Base Typography
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   3. Layout Components: Sticky Header & PageContainer
+   -------------------------------------------------------------------------- */
+/* Pin 1: Sticky Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 72px;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+.header-container {
+  max-width: 1200px;
+  height: 100%;
+  padding: 0 24px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Pin 2: Brand Block */
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.brand-titles {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.brand-subtitle {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 24px;
+}
+
+.brand-status-tag {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary);
+  margin-left: 12px;
+  background-color: var(--primary-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+
+/* Pin 3: Crash Test Button */
+.btn-crash-test {
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  background-color: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-crash-test:hover {
+  background-color: var(--danger);
+  color: #FFFFFF;
+}
+
+/* Page Container */
+.page-container {
+  max-width: 1200px;
+  padding: 24px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   4. Tier 2: Stat Grid & Stat Card
+   -------------------------------------------------------------------------- */
+/* Pin 4: Stat Grid */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Pin 5: Stat Card */
+.stat-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Pin 7: Stat Icon Tile */
+.stat-icon-tile {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: var(--primary-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+/* Pin 6: Stat Label & Value */
+.stat-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+/* --------------------------------------------------------------------------
+   5. Tier 3: Main Workspace Grid
+   -------------------------------------------------------------------------- */
+/* Pin 8: Main Workspace Grid (Left 40%, Right 60%) */
+.workspace-grid {
+  display: grid;
+  grid-template-columns: calc(40% - 12px) calc(60% - 12px);
+  gap: 24px;
+  margin-top: 24px;
+  align-items: start;
+}
+
+.workspace-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.workspace-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   6. UI Primitives: Card, Button, Badge, Filter Chips
+   -------------------------------------------------------------------------- */
+/* Card Container */
+.ui-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  box-shadow: var(--card-shadow);
+}
+
+.ui-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+/* Pin 16: Card Title & Count Pill */
+.ui-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.ui-count-pill {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  background-color: var(--primary-soft);
+  border-radius: var(--radius-pill);
+  padding: 2px 10px;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Filter Chips (Pins 10, 11, 22) */
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.filter-chip {
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  border: 1px solid var(--border-color);
+  background-color: #FFFFFF;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.filter-chip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Pin 10: Active Filter Chip */
+.filter-chip.active {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+.chip-count-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(255, 255, 255, 0.25);
+  color: inherit;
+}
+
+.filter-chip:not(.active) .chip-count-badge {
+  background-color: var(--bg-page);
+  color: var(--text-muted);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.2;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Status Badges (Pins 24-27) */
+.badge {
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.3;
+  width: fit-content;
+}
+
+.badge-pending {
+  color: var(--pending-text);
+  background-color: var(--pending-bg);
+}
+
+.badge-confirmed {
+  color: var(--confirmed-text);
+  background-color: var(--confirmed-bg);
+}
+
+.badge-completed {
+  color: var(--completed-text);
+  background-color: var(--completed-bg);
+}
+
+.badge-cancelled {
+  color: var(--cancelled-text);
+  background-color: var(--cancelled-bg);
+}
+
+/* Pin 15: Not Available Badge */
+.badge-unavailable {
+  color: var(--cancelled-text);
+  background-color: var(--cancelled-bg);
+  font-size: 11px;
+  padding: 2px 8px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+}
+
+/* --------------------------------------------------------------------------
+   7. Doctors Section (Left Column)
+   -------------------------------------------------------------------------- */
+/* Pin 9: Doctor Search Input */
+.search-input-wrapper {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.search-input {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: #FFFFFF;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+}
+
+.search-input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Scrollable Doctors List */
+.doctor-scroll-list {
+  max-height: 520px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 4px;
+}
+
+/* Custom Minimal Scrollbar */
+.doctor-scroll-list::-webkit-scrollbar,
+.table-responsive-wrapper::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.doctor-scroll-list::-webkit-scrollbar-track,
+.table-responsive-wrapper::-webkit-scrollbar-track {
+  background: var(--bg-page);
+  border-radius: 4px;
+}
+
+.doctor-scroll-list::-webkit-scrollbar-thumb,
+.table-responsive-wrapper::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.doctor-scroll-list::-webkit-scrollbar-thumb:hover,
+.table-responsive-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Doctor Card (Pins 12, 13, 14, 15) */
+.doctor-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* Pin 13: Hover State */
+.doctor-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--card-hover-shadow);
+}
+
+/* Pin 12: Selected Doctor Card */
+.doctor-card.selected {
+  background-color: var(--primary-soft);
+  border: 1px solid var(--primary);
+  border-left: 3px solid var(--primary);
+}
+
+.doctor-card-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Pin 14: Doctor Avatar Tile */
+.doctor-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background-color: var(--primary-soft);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.doctor-card.selected .doctor-avatar {
+  background-color: #FFFFFF;
+}
+
+.doctor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.doctor-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.doctor-specialization {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.doctor-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.doctor-fee {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.doctor-dept-pill {
+  color: var(--text-muted);
+  background-color: var(--bg-page);
+  padding: 1px 8px;
+  border-radius: var(--radius-pill);
+}
+
+.doctor-card.selected .doctor-dept-pill {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Doctor Select Button */
+.btn-doctor-select {
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background-color: #FFFFFF;
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-doctor-select:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-doctor-select.is-selected {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+.btn-doctor-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   8. Appointment Form (Right Column Top)
+   -------------------------------------------------------------------------- */
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Success Banner (REQ-2b) */
+.form-success-banner {
+  background-color: var(--completed-bg);
+  color: var(--completed-text);
+  border: 1px solid #86EFAC;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+/* General Form Error Banner (REQ-10) */
+.form-error-banner {
+  background-color: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid #FCA5A5;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+/* Form Fields */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Pin 17: Field label with red asterisk */
+.form-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.required-star {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* Pin 17: Input focus state */
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: #FFFFFF;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: all 0.15s ease;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+.form-input.has-error,
+.form-select.has-error,
+.form-textarea.has-error {
+  border-color: var(--danger);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+/* Pin 18: Validation Error Message */
+.field-error-msg {
+  font-size: 12px;
+  color: var(--danger);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Pin 19: Date + Time Row (2 columns) */
+.form-row-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Pin 20: Uncontrolled File Input container */
+.uncontrolled-file-box {
+  border: 1px dashed var(--border-color);
+  background-color: #F8FAFC;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.file-input {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.file-input-help {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Pin 21: Form Action Buttons */
+.form-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   9. Appointments Table & List (Right Column Bottom)
+   -------------------------------------------------------------------------- */
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+}
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Pin 23: Appointments Table Header */
+.appointments-table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: #FFFFFF;
+}
+
+.appointments-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border-color);
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.appointments-table tr:last-child td {
+  border-bottom: none;
+}
+
+.appointments-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+.patient-cell-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.patient-cell-phone {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.doctor-cell-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.doctor-cell-dept {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.datetime-cell-date {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.datetime-cell-time {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Status Column: Badge + Pin 28: Per-Row Status Dropdown */
+.status-cell-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.status-row-select {
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  padding: 3px 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.status-row-select:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
+
+/* Pin 29: Delete Action Button */
+.btn-delete-row {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+}
+
+.btn-delete-row:hover {
+  background-color: var(--danger-soft);
+}
+
+/* --------------------------------------------------------------------------
+   10. Empty State Component
+   -------------------------------------------------------------------------- */
+.empty-state-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #F8FAFC;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  margin: 8px 0;
+}
+
+.empty-state-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.empty-state-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.empty-state-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  max-width: 320px;
+}
+
+/* --------------------------------------------------------------------------
+   11. Error Boundary & Fallback UI (REQ-11)
+   -------------------------------------------------------------------------- */
+.fallback-container {
+  background-color: #FFFFFF;
+  border: 1px solid #FECACA;
+  border-radius: var(--card-radius);
+  padding: 24px;
+  margin: 16px 0;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.06);
+}
+
+.fallback-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--danger);
+  margin-bottom: 8px;
+}
+
+.fallback-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.fallback-message {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.fallback-details {
+  background-color: #F8FAFC;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 12px;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.fallback-details summary {
+  font-weight: 600;
+  color: var(--text-muted);
+  outline: none;
+}
+
+.fallback-error-text {
+  margin-top: 8px;
+  color: var(--danger);
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.btn-try-again {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-try-again:hover {
+  background-color: var(--primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   12. Pin 30: Footer
+   -------------------------------------------------------------------------- */
+.app-footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 24px 0 32px 0;
+  margin-top: 32px;
+}
+
+/* --------------------------------------------------------------------------
+   13. Responsive Media Queries
+   -------------------------------------------------------------------------- */
+/* Tablet Breakpoint (640px – 1023px) */
+@media (max-width: 1023px) {
+  .stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .workspace-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Mobile Breakpoint (< 640px) */
+@media (max-width: 639px) {
+  .header-container {
+    padding: 0 16px;
+  }
+
+  .brand-subtitle {
+    display: none; /* Hide subtitle on very small screens to maintain 72px header */
+  }
+
+  .page-container {
+    padding: 16px;
+  }
+
+  .stat-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .workspace-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .form-row-2col {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-actions-row .btn {
+    width: 100%;
+  }
+
+  .doctor-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .doctor-card .btn-doctor-select {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
