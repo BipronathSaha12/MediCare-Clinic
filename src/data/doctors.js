@@ -68,3 +68,4 @@ export const doctors = [
     available: false
   }
 ];
+

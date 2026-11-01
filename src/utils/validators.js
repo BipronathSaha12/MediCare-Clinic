@@ -92,3 +92,4 @@ export const validateAppointmentForm = (formData) => {
 
   return errors;
 };
+

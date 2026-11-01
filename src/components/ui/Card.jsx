@@ -25,3 +25,4 @@ export default function Card({ title, count, action, className = '', children })
     </section>
   );
 }
+

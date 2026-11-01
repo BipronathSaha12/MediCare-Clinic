@@ -90,3 +90,4 @@ export const getInitials = (name) => {
   }
   return clean.substring(0, 2).toUpperCase();
 };
+

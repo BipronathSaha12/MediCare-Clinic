@@ -42,3 +42,4 @@ export default function FallbackUI({ error, onReset, componentName = 'section' }
     </div>
   );
 }
+
