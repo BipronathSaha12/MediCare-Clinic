@@ -49,7 +49,7 @@ export default function DoctorCard({ doctor, isSelected, onSelectDoctor }) {
           <div className="doctor-specialization">
             <span>{doctor.specialization}</span>
 
-            {/* // [REQ-2b] Logical && operator:
+            {/* // [REQ-2] [REQ-2b] Logical && operator:
                 Conditionally renders the "Not available" badge if the doctor's available flag is false */}
             {!doctor.available && (
               <span className="badge-unavailable">
@@ -72,7 +72,7 @@ export default function DoctorCard({ doctor, isSelected, onSelectDoctor }) {
           onClick={handleSelect}
           className={`btn-doctor-select ${isSelected ? 'is-selected' : ''}`}
         >
-          {/* // [REQ-2a] Ternary operator:
+          {/* // [REQ-2] [REQ-2a] Ternary operator:
               Renders "Selected" when this doctor is active in state, otherwise "Select" */}
           {isSelected ? 'Selected' : 'Select'}
         </button>

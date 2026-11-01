@@ -12,7 +12,7 @@ export default function FilterableList({
   wrapper: Wrapper = 'div',
   keyExtractor = (item) => item.id
 }) {
-  // // [REQ-2a] Ternary operator:
+  // // [REQ-2] [REQ-2a] Ternary operator:
   // Evaluates whether the collection is empty and conditionally renders
   // either the designated EmptyState component or the mapped items.
   if (items.length === 0) {

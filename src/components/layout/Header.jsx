@@ -22,7 +22,7 @@ export default function Header({ pendingCount = 0 }) {
             <h1 className="brand-name">MediCare Clinic</h1>
             <span className="brand-subtitle">Front Desk Dashboard</span>
 
-            {/* // [REQ-2d] IIFE (Immediately-Invoked Function Expression) inside JSX:
+            {/* // [REQ-2] [REQ-2d] IIFE (Immediately-Invoked Function Expression) inside JSX:
                 Computes dynamic reception operational status directly within JSX markup */}
             {(() => {
               if (pendingCount === 0) {

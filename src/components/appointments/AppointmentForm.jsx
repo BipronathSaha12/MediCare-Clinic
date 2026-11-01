@@ -161,7 +161,7 @@ export default function AppointmentForm({
     // Wraps the booking form in the reusable Card component
     <Card title="Book New Appointment">
       <form onSubmit={handleSubmit} className="booking-form" noValidate>
-        {/* // [REQ-2b] Logical && operator:
+        {/* // [REQ-2] [REQ-2b] Logical && operator:
             Conditionally renders the auto-hiding green booking success banner */}
         {successBanner && (
           <div className="form-success-banner" role="status">
@@ -169,7 +169,7 @@ export default function AppointmentForm({
           </div>
         )}
 
-        {/* // [REQ-2b] Logical && operator:
+        {/* // [REQ-2] [REQ-2b] Logical && operator:
             Conditionally renders top-level submission error banner if catch block triggers */}
         {submissionError && (
           <div className="form-error-banner" role="alert">

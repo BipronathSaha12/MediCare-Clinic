@@ -1,6 +1,6 @@
 import React from 'react';
 
-// [REQ-2c] Switch statement: Inside Badge.jsx (or helper called by Badge.jsx),
+// [REQ-2] [REQ-2c] Switch statement: Inside Badge.jsx (or helper called by Badge.jsx),
 // use a switch (status) statement to return the exact badge color tokens
 // for 'Pending', 'Confirmed', 'Completed', and 'Cancelled'.
 export const getBadgeStyle = (status) => {
