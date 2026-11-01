@@ -3,94 +3,247 @@
 [![React](https://img.shields.io/badge/React-19.0.0-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Vite](https://img.shields.io/badge/Vite-6.0.7-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES2024-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![CSS3](https://img.shields.io/badge/CSS3-Pure_Tokens-1572B6?logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/)
+[![CSS3](https://img.shields.io/badge/CSS3-Custom_Tokens-1572B6?logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-0F766E.svg)](LICENSE)
+[![Tested on Firefox](https://img.shields.io/badge/Tested%20on-Mozilla%20Firefox-FF7139?logo=firefox-browser&logoColor=white)](https://www.mozilla.org/firefox/)
 
 > **React Batch-9 | Module-26 Assignment Official Submission**  
-> **Repository:** [https://github.com/BipronathSaha12/MediCare-Clinic.git](https://github.com/BipronathSaha12/MediCare-Clinic.git)  
-> A pixel-accurate, single-page hospital front-desk appointment dashboard engineered with **React + Vite**. The entire application operates 100% on local hard-coded seed data within reactive React state (zero external UI kits, zero backend/REST APIs, zero router/Redux overhead).
+> **GitHub Repository:** [https://github.com/BipronathSaha12/MediCare-Clinic.git](https://github.com/BipronathSaha12/MediCare-Clinic.git)  
+> A production-grade, single-page hospital front-desk appointment dashboard engineered with **React (JavaScript) + Vite**. The application operates 100% on local hard-coded seed data within reactive React state with zero external UI kits, zero backend/REST APIs, zero routing dependencies, and zero state management libraries.
 
 ---
 
 ## Table of Contents
-1. [Clinical Use Cases & Front-Desk Workflow](#1-clinical-use-cases--front-desk-workflow)
-2. [Developer Quick Start & Toolchain](#2-developer-quick-start--toolchain)
+1. [Uses & End-User Clinical Workflows](#1-uses--end-user-clinical-workflows)
+2. [Developer Instructions & Operating Guide](#2-developer-instructions--operating-guide)
+   - [2.1 Prerequisites & Toolchain](#21-prerequisites--toolchain)
+   - [2.2 Quick Start & Installation](#22-quick-start--installation)
+   - [2.3 Running with Mozilla Firefox (Senior Developer Method)](#23-running-with-mozilla-firefox-senior-developer-method)
+   - [2.4 Production Build & Bundle Inspection](#24-production-build--bundle-inspection)
+   - [2.5 Developer Testing & Verification Protocol](#25-developer-testing--verification-protocol)
+   - [2.6 Developer Extensibility Cookbook (Adding Doctors, Fields & APIs)](#26-developer-extensibility-cookbook)
 3. [Architecture & System Design](#3-architecture--system-design)
-4. [Component Hierarchy & Data Flow](#4-component-hierarchy--data-flow)
-5. [React Core Concepts & Grading Registry (REQ-1 to REQ-12)](#5-react-core-concepts--grading-registry-req-1-to-req-12)
+4. [Component Hierarchy & Spatial Layout](#4-component-hierarchy--spatial-layout)
+5. [React Core Concepts Registry (REQ-1 to REQ-12)](#5-react-core-concepts-registry-req-1-to-req-12)
 6. [Architectural Deep Dives](#6-architectural-deep-dives)
    - [6.1 Prop Drilling Analysis & Solutions (REQ-9)](#61-prop-drilling-analysis--solutions-req-9)
-   - [6.2 Error Handling & 3-Tier Fault Tolerance (REQ-11 & REQ-12)](#62-error-handling--3-tier-fault-tolerance-req-11--req-12)
+   - [6.2 3-Tier Error Handling & Fault Tolerance (REQ-11 & REQ-12)](#62-3-tier-error-handling--fault-tolerance-req-11--req-12)
    - [6.3 Controlled vs Uncontrolled Forms (REQ-7 & REQ-8)](#63-controlled-vs-uncontrolled-forms-req-7--req-8)
 7. [Design Tokens & 30-Pin Visual Specifications](#7-design-tokens--30-pin-visual-specifications)
-8. [Seed Data & Metric Alignment](#8-seed-data--metric-alignment)
-9. [Developer Guide & Extensibility Roadmap](#9-developer-guide--extensibility-roadmap)
-10. [Deployment Instructions](#10-deployment-instructions)
+8. [Module-26 Viva & Technical Interview Defense Guide](#8-module-26-viva--technical-interview-defense-guide)
+9. [Deployment Blueprint](#9-deployment-blueprint)
 
 ---
 
-## 1. Clinical Use Cases & Front-Desk Workflow
+## 1. Uses & End-User Clinical Workflows
 
-MediCare Clinic Front Desk Dashboard provides medical receptionists with a centralized operational workspace to manage daily clinic consultations with zero latency:
+The dashboard provides medical receptionists and hospital administrators with an operational command center to manage outpatient department (OPD) traffic:
 
 ```
-[ Receptionist Workflow ]
+┌────────────────────────────────────────────────────────────────────────┐
+│                      FRONT DESK RECEPTION WORKFLOW                     │
+└────────────────────────────────────────────────────────────────────────┘
        │
-       ├──► 1. Triage & Overview ──► Check real-time KPI metrics (Doctors, Appointments, Pending Queue)
+       ├──► USE 1: Real-Time Operational Overview
+       │    └─ Instantly monitor clinic load: Total Doctors (08), Total Appts (12),
+       │       Pending Appts (05), and Completed Appts (04).
+       │    └─ Dynamic IIFE header tag indicates triage queue pressure:
+       │       [● All Caught Up] | [● Active (5 Pending)] | [● High Queue]
        │
-       ├──► 2. Doctor Discovery ───► Search by physician name & filter by specialty department
+       ├──► USE 2: Multi-Criteria Physician Discovery & Availability
+       │    └─ Search doctors by name with instant live filtering.
+       │    └─ Filter dynamically by department (Cardiology, Neurology, Medicine, Orthopedics).
+       │    └─ View doctor visiting fee, qualifications, and real-time availability status.
+       │    └─ Unavailable doctors display a red "Not available" badge and disable booking.
        │
-       ├──► 3. Patient Booking ────► Select doctor (auto-syncs form) + enter patient details & attach file
+       ├──► USE 3: Streamlined Patient Booking with Auto-Sync
+       │    └─ Clicking "Select" on a doctor card highlights the card and auto-populates
+       │       the doctor selection dropdown in the booking form (Lifted State).
+       │    └─ Validate patient name (min 3 chars), Bangladeshi phone number (01XXXXXXXXX),
+       │       appointment date (past dates blocked), and appointment time.
+       │    └─ Attach optional medical records/prescriptions via an uncontrolled file input.
+       │    └─ Submit booking: Instant auto-hiding success alert + prepended to table.
        │
-       └──► 4. Schedule Management ─► Filter by status, update lifecycle (Pending ➜ Confirmed ➜ Completed)
+       ├──► USE 4: Consultation Lifecycle Management
+       │    └─ Filter appointment table by status: All, Pending, Confirmed, Completed, Cancelled.
+       │    └─ Inline status mutation dropdown allows immediate state updates on each row.
+       │    └─ Changing an appointment's status immediately updates the KPI counter cards.
+       │
+       └──► USE 5: Safe Patient Record Deletion & Fault Recovery
+            └─ Delete consultations with browser confirmation (window.confirm).
+            └─ Trigger intentional render error via "💥 Crash Test" to demonstrate
+               isolated ErrorBoundary and FallbackUI recovery without crashing the page.
 ```
-
-- **Live Triage & Queue Monitoring**: Instantly view clinic load via KPI cards and header operational tags (`All Caught Up`, `Active`, `High Queue`).
-- **Physician Filtering & Availability Checking**: Filter doctors across **Cardiology**, **Neurology**, **Medicine**, and **Orthopedics**. Physicians marked `available: false` visually indicate "Not available" and disable booking.
-- **Synchronized Scheduling**: Selecting a physician from the doctor panel automatically populates and locks the doctor select field in the booking form via lifted state.
-- **Consultation Lifecycle Management**: Update any appointment's status inline (`Pending`, `Confirmed`, `Completed`, `Cancelled`) with live color-coded badge transitions and automatic KPI metric recalculation.
-- **Safe Patient Record Deletion**: Immediate removal of appointments with native browser confirmation dialogs (`window.confirm`).
 
 ---
 
-## 2. Developer Quick Start & Toolchain
+## 2. Developer Instructions & Operating Guide
 
-### Prerequisites
-- **Node.js**: `v18.0.0` or higher (verified on Node `v24.x`)
-- **Package Manager**: `npm` `v9.0.0` or higher
-- **Web Browser**: Mozilla Firefox, Google Chrome, Microsoft Edge, or Apple Safari
+### 2.1 Prerequisites & Toolchain
+- **Node.js**: `v18.0.0` or higher (verified on Node `v24.14.0`)
+- **Package Manager**: `npm` `v9.0.0` or higher (bundled with Node)
+- **Git**: `v2.40.0` or higher
+- **Supported Browsers**: Mozilla Firefox, Google Chrome, Microsoft Edge, Safari
 
-### Local Setup Instructions
+---
+
+### 2.2 Quick Start & Installation
 
 ```bash
-# 1. Clone the GitHub repository
+# Step 1: Clone the remote repository
 git clone https://github.com/BipronathSaha12/MediCare-Clinic.git
 
-# 2. Navigate to project root
+# Step 2: Enter the project codebase directory
 cd MediCare-Clinic
 
-# 3. Install dependencies
+# Step 3: Install all dependencies (clean install)
 npm install
 
-# 4. Start local development server with Hot Module Replacement (HMR)
+# Step 4: Run the development server with Hot Module Replacement
 npm run dev
 
-# 5. Open browser at http://localhost:3000
+# Step 5: Open your browser at http://localhost:3000
 ```
 
-### CLI Command Reference
+---
 
-| Command | Action | Description |
-| :--- | :--- | :--- |
-| `npm run dev` | Dev Server | Launches Vite dev server at `http://localhost:3000` with active HMR. |
-| `npm run build` | Production Build | Compiles and optimizes assets into `dist/` with gzip size analysis. |
-| `npm run preview` | Production Preview | Locally serves production `dist/` bundle on port `4173` for testing. |
+### 2.3 Running with Mozilla Firefox (Senior Developer Method)
+
+As a senior developer running this project with **Mozilla Firefox**:
+
+#### Automatic Launch on Windows (PowerShell)
+```powershell
+# Start the Vite development server in the background
+npm run dev
+
+# In a separate terminal (or background session), launch Firefox directly:
+Start-Process firefox "http://localhost:3000"
+```
+
+#### Automatic Launch on macOS / Linux
+```bash
+# macOS
+npm run dev &
+open -a Firefox "http://localhost:3000"
+
+# Linux
+npm run dev &
+firefox "http://localhost:3000" &
+```
+
+#### Configuring Vite to Always Target Firefox
+You can also launch Vite with the `BROWSER` environment variable set:
+```bash
+# Windows PowerShell
+$env:BROWSER="firefox"; npm run dev
+
+# macOS / Linux / Bash
+BROWSER=firefox npm run dev
+```
+
+---
+
+### 2.4 Production Build & Bundle Inspection
+
+To test production bundling, tree-shaking, and minification:
+
+```bash
+# Execute production build
+npm run build
+```
+
+**Expected Build Output**:
+```text
+✓ 53 modules transformed.
+dist/index.html                   1.03 kB │ gzip:  0.58 kB
+dist/assets/index-D8ymT4gx.css   14.81 kB │ gzip:  3.31 kB
+dist/assets/index-sS6i9Zv6.js   248.32 kB │ gzip: 77.25 kB
+✓ built in 1.33s
+```
+
+#### Local Production Preview
+```bash
+# Test the compiled production artifacts locally
+npm run preview
+
+# Serves production build at http://localhost:4173/
+```
+
+---
+
+### 2.5 Developer Testing & Verification Protocol
+
+When contributing to or evaluating this codebase, execute the following verification steps:
+
+| Step | Test Objective | Action | Expected Result |
+| :---: | :--- | :--- | :--- |
+| **1** | **KPI Counters** | Load application in Firefox | Stat cards show `08` Total Doctors, `12` Total Appts, `05` Pending, `04` Completed. |
+| **2** | **Doctor Search** | Type `"Ayesha"` in search box | Only Dr. Ayesha Rahman card remains visible. Clear search restores all 8 cards. |
+| **3** | **Department Filter** | Click `"Cardiology"` chip | Chip becomes active (teal); only Cardiology doctors (Dr. Ayesha, Dr. Farzana) render. |
+| **4** | **Lifted State Sync** | Click `"Select"` on Dr. Mahmud Karim | Doctor card turns teal, button reads `"Selected"`, and Appointment Form select updates to Dr. Mahmud. |
+| **5** | **Form Validation** | Submit empty form | Submit button is disabled; input fields highlight red with specific validation messages. |
+| **6** | **Uncontrolled File** | Select a `.pdf` file in file input | File input reads filename via `useRef` on submit and logs payload without triggering re-render. |
+| **7** | **New Booking** | Fill valid data & click Confirm | Green success banner appears; total appointments becomes `13`, pending becomes `06`, row is prepended. |
+| **8** | **Status Dropdown** | Change any row from Pending to Confirmed | Row badge turns blue (`Confirmed`), Pending stat counter drops by 1. |
+| **9** | **Row Deletion** | Click `"Delete"` on appointment | Prompts `window.confirm()`; on approval, removes record from state and updates counters. |
+| **10** | **Error Boundary** | Click `"💥 Crash Test"` in Header | Top-level ErrorBoundary catches throw; renders FallbackUI with collapsible stack and "Try Again". |
+| **11** | **Isolated Boundary** | Error in AppointmentList | Only the appointments panel renders FallbackUI; doctor catalog and booking form remain fully interactive! |
+
+---
+
+### 2.6 Developer Extensibility Cookbook
+
+#### A. How to Register a New Doctor
+Open [`src/data/doctors.js`](src/data/doctors.js) and append a new doctor record:
+```javascript
+{
+  id: 9,
+  name: 'Dr. Shahriar Kabir',
+  department: 'Dermatology', // Automatically creates a new department filter chip!
+  specialization: 'MBBS, DDV (Dermatology)',
+  visitingFee: 1100,
+  available: true
+}
+```
+*Note: Because department filter chips are derived dynamically using `Array.from(new Set(doctors.map(d => d.department)))`, adding a new department automatically generates its UI filter chip with zero hardcoding!*
+
+#### B. How to Add a New Appointment Status
+1. Open [`src/components/ui/Badge.jsx`](src/components/ui/Badge.jsx) and add a new case to `getBadgeStyle(status)`:
+   ```javascript
+   case 'In-Consultation':
+     return { className: 'badge badge-in-consultation', dotColor: '#7C3AED', label: 'In-Consultation' };
+   ```
+2. Open [`src/index.css`](src/index.css) and define color tokens:
+   ```css
+   --in-consultation-text: #7C3AED;
+   --in-consultation-bg: #EDE9FE;
+   ```
+3. Add `'In-Consultation'` to `statusTabs` in [`src/components/appointments/AppointmentList.jsx`](src/components/appointments/AppointmentList.jsx) and `<option>` in [`src/components/appointments/AppointmentRow.jsx`](src/components/appointments/AppointmentRow.jsx).
+
+#### C. Migrating from Local State to a Production REST API
+To transition this frontend from local seed data to a production backend:
+1. Replace seed initialization in [`src/App.jsx`](src/App.jsx) with React Query / TanStack Query:
+   ```javascript
+   // Future API Hook Example:
+   import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
+   const { data: doctors = [] } = useQuery({
+     queryKey: ['doctors'],
+     queryFn: () => fetch('/api/v1/doctors').then(res => res.json())
+   });
+
+   const { data: appointments = [] } = useQuery({
+     queryKey: ['appointments'],
+     queryFn: () => fetch('/api/v1/appointments').then(res => res.json())
+   });
+   ```
+2. Mutate state using `useMutation` for `createAppointment`, `updateStatus`, and `deleteAppointment`.
 
 ---
 
 ## 3. Architecture & System Design
 
-The application follows an **Unidirectional Data Flow** with a **3-Tier Responsive Spatial Architecture**:
+The application follows an **Unidirectional Data Flow** with a **3-Tier Spatial Layout Model**:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -120,7 +273,7 @@ The application follows an **Unidirectional Data Flow** with a **3-Tier Responsi
 
 ---
 
-## 4. Component Hierarchy & Data Flow
+## 4. Component Hierarchy & Spatial Layout
 
 ```mermaid
 graph TD
@@ -153,9 +306,9 @@ graph TD
 
 ---
 
-## 5. React Core Concepts & Grading Registry (REQ-1 to REQ-12)
+## 5. React Core Concepts Registry (REQ-1 to REQ-12)
 
-Every mandatory assignment rubric evaluation tag is placed in the code in the exact format required:
+Every mandatory rubric evaluation tag is placed in the code in the exact format required:
 
 | Rubric Tag | Core React Concept | Location | Implementation Details |
 | :--- | :--- | :--- | :--- |
@@ -181,24 +334,24 @@ Every mandatory assignment rubric evaluation tag is placed in the code in the ex
 
 ### 6.1 Prop Drilling Analysis & Solutions (REQ-9)
 
-#### What was the problem?
-When building modular component trees, child components often need data or handlers stored at the root:
+#### The Problem
+In hierarchical React component structures:
 ```text
-App (holds selectedDoctorId and onSelectDoctor)
+App (manages selectedDoctorId state)
  └── DoctorPanel (does NOT use selectedDoctorId directly)
       └── DoctorList (does NOT use selectedDoctorId directly)
            └── DoctorCard (consumes selectedDoctorId to render "Selected" state)
 ```
 In this naive architecture:
-- Both `DoctorPanel` and `DoctorList` act as **"dumb pass-through pipes"** (prop drilling).
-- Adding or renaming a prop on `DoctorCard` requires refactoring every intermediate file.
-- It degrades testability and creates tight architectural coupling.
+- `DoctorPanel` and `DoctorList` act as **blind pass-through intermediaries**.
+- Modifying `DoctorCard`'s props requires updating every intermediate component signature.
+- It introduces boilerplate clutter, increases refactoring friction, and violates separation of concerns.
 
 #### How We Solved It
 1. **Component Composition (`children` prop)**:
-   By structuring `Card.jsx` to render `props.children`, the container does not need to know what props its children require.
+   `Card.jsx` provides a presentation container rendering `props.children`, allowing `DoctorFilter` and `DoctorList` to be composed directly inside `DoctorPanel`.
 2. **Render Prop Pattern (`FilterableList.jsx`)**:
-   `DoctorList` delegates iteration to `FilterableList`, passing a `renderItem={(doctor) => <DoctorCard ... />}` callback. The consumer defines component bindings directly at the instantiation call site.
+   `DoctorList` delegates iteration to `FilterableList`, passing a `renderItem={(doctor) => <DoctorCard ... />}` callback. The consumer binds props directly to `DoctorCard` at the render site.
 3. **Enterprise Alternative (React Context Comparison)**:
    In larger applications with deeply nested component trees (>4 levels), a `ClinicContext` (`createContext` + `useContext`) can supply state globally:
    ```jsx
@@ -206,11 +359,11 @@ In this naive architecture:
    const ClinicContext = React.createContext(null);
    export const useClinic = () => React.useContext(ClinicContext);
    ```
-   *Trade-off*: Context adds implicit global dependencies and can cause unnecessary re-renders across consumers; **Component Composition** and **Render Props** provide explicit, clean, and highly performant data flow without boilerplate.
+   *Trade-off*: Context adds implicit global dependencies and can trigger wider re-renders unless memoized; **Component Composition** and **Render Props** provide explicit, clean, and highly performant data flow without boilerplate.
 
 ---
 
-### 6.2 Error Handling & 3-Tier Fault Tolerance (REQ-11 & REQ-12)
+### 6.2 3-Tier Error Handling & Fault Tolerance (REQ-11 & REQ-12)
 
 #### Why React `ErrorBoundary` Alone is Insufficient
 Many developers assume wrapping an app in `<ErrorBoundary>` catches every runtime crash. It does **not**:
@@ -242,7 +395,7 @@ Tier 3: Global Window Catchers      ──► window.onerror & unhandledrejectio
 
 ## 7. Design Tokens & 30-Pin Visual Specifications
 
-Styled exclusively with clean, standard CSS custom properties in `src/index.css`:
+Styled exclusively with clean, standard CSS custom properties in [`src/index.css`](src/index.css):
 
 ### Color Tokens
 ```css
@@ -290,65 +443,42 @@ Styled exclusively with clean, standard CSS custom properties in `src/index.css`
 
 ---
 
-## 8. Seed Data & Metric Alignment
+## 8. Module-26 Viva & Technical Interview Defense Guide
 
-Seed datasets in `src/data/doctors.js` and `src/data/appointments.js` align with the screenshot numbers:
-- **Total Doctors**: `08` (4 departments: Cardiology, Neurology, Medicine, Orthopedics)
-- **Total Appointments**: `12`
-- **Pending Appointments**: `05`
-- **Completed Appointments**: `04`
-- **Confirmed Appointments**: `02`
-- **Cancelled Appointments**: `01`
-- `5 + 4 + 2 + 1 = 12 total appointments`
+When defending this project during code review or assignment viva:
 
----
+### Q1: Why did you use `.map()` instead of a `for` loop inside JSX?
+> **Answer**: In JSX, curly braces `{}` only accept JavaScript expressions that evaluate to a value. A `for` loop is a JavaScript statement, not an expression, so it cannot be placed directly inside JSX markup. `.map()` is an expression that returns a new array of React elements, allowing seamless inline transformation.
 
-## 9. Developer Guide & Extensibility Roadmap
+### Q2: Why is using the array index as a `key` dangerous?
+> **Answer**: When items are reordered, filtered, or deleted (as in our doctor department filtering and appointment deletion), the index changes for existing items. React uses keys to match virtual DOM nodes with actual DOM nodes. Using indexes leads to component state bugs, incorrect animations, and wasted reconciliation re-renders. We use stable, unique IDs (`doctor.id`, `appointment.id`).
 
-### Adding a New Doctor
-To register an additional physician, append a new object to `src/data/doctors.js`:
-```javascript
-{
-  id: 9,
-  name: 'Dr. Shahriar Kabir',
-  department: 'Dermatology', // Automatically generates a new department chip!
-  specialization: 'MBBS, DDV',
-  visitingFee: 1100,
-  available: true
-}
-```
+### Q3: Why is React `ErrorBoundary` not enough for complete app safety?
+> **Answer**: `ErrorBoundary` only catches errors during the React render phase, lifecycle methods, and constructors of class components. It cannot catch errors inside event handlers (like form submits or click handlers) or asynchronous callbacks (`setTimeout`, Promises). Our application supplements `ErrorBoundary` with `try / catch` in event handlers and global `window.onerror` / `unhandledrejection` listeners.
 
-### Adding a New Appointment Lifecycle Status
-1. Update `src/components/ui/Badge.jsx` with a new case in the `switch (status)` statement.
-2. Add the status string to `statusTabs` in `src/components/appointments/AppointmentList.jsx`.
-3. Add the `<option>` tag in `src/components/appointments/AppointmentRow.jsx`.
-
-### Future REST API Integration Guide
-When transitioning from local React state to a production backend:
-1. Replace seed imports in `App.jsx` with a custom hook: `useAppointments()`.
-2. Connect to an API endpoint using TanStack React Query:
-   ```javascript
-   const { data: appointments, isLoading } = useQuery({
-     queryKey: ['appointments'],
-     queryFn: () => fetch('/api/appointments').then(res => res.json())
-   });
-   ```
-3. Convert `onAddAppointment`, `onStatusChange`, and `onDeleteAppointment` into React Query mutations (`useMutation`).
+### Q4: How did you solve Prop Drilling in the Doctor Panel?
+> **Answer**: Passing `selectedDoctorId` and `onSelectDoctor` down `App -> DoctorPanel -> DoctorList -> DoctorCard` forces middle components to act as dumb pass-throughs. We solved this using **Component Composition (`children`)** and the **Render Prop Pattern (`FilterableList`)**, allowing caller-side direct binding of `DoctorCard` without coupling intermediate containers.
 
 ---
 
-## 10. Deployment Instructions
+## 9. Deployment Blueprint
 
-### Deploying to Vercel
+### Deploying to Vercel (Recommended)
 ```bash
+# Install Vercel CLI
 npm install -g vercel
+
+# Deploy directly from repository root
 vercel
 ```
 
 ### Deploying to Netlify
 ```bash
+# Install Netlify CLI
 npm install -g netlify-cli
-netlify deploy --build
+
+# Build and deploy
+netlify deploy --build --prod
 ```
 
 ### Deploying to GitHub Pages
