@@ -404,4 +404,4 @@ netlify deploy --build --prod
 ## 9. License & Author
 
 Developed by **[Bipronath Saha](https://github.com/BipronathSaha12)**.  
-Licensed under the [MIT License](LICENSE).
+Licensed under the [MIT License](https://github.com/BipronathSaha12/MediCare-Clinic/blob/main/LICENSE).
