@@ -336,13 +336,17 @@ button, input, select, textarea {
   font-weight: 700;
   padding: 1px 6px;
   border-radius: var(--radius-pill);
-  background-color: rgba(255, 255, 255, 0.25);
-  color: inherit;
+  transition: all 0.15s ease;
+}
+
+.filter-chip.active .chip-count-badge {
+  background-color: #FFFFFF;
+  color: #0F766E; /* High contrast: 5.47:1 contrast on #FFFFFF (meets WCAG 2 AA) */
 }
 
 .filter-chip:not(.active) .chip-count-badge {
-  background-color: var(--bg-page);
-  color: var(--text-muted);
+  background-color: #E2E8F0;
+  color: #334155; /* High contrast: 8.3:1 contrast on #E2E8F0 (meets WCAG 2 AA) */
 }
 
 /* Buttons */
