@@ -593,14 +593,16 @@ button, input, select, textarea {
 }
 
 .doctor-dept-pill {
-  color: var(--text-muted);
+  color: #334155; /* High contrast slate-700 (9.45:1 contrast on #F1F5F9, meets WCAG 2 AA) */
   background-color: var(--bg-page);
   padding: 1px 8px;
   border-radius: var(--radius-pill);
+  font-weight: 500;
 }
 
 .doctor-card.selected .doctor-dept-pill {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #0F172A;
 }
 
 /* Doctor Select Button */
