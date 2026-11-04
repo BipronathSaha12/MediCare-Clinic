@@ -32,9 +32,6 @@ export default function DoctorCard({ doctor, isSelected, onSelectDoctor }) {
     <article
       className={cardClasses}
       onClick={handleSelect}
-      role="button"
-      tabIndex={doctor.available ? 0 : -1}
-      aria-pressed={isSelected}
       style={{ cursor: doctor.available ? 'pointer' : 'default' }}
     >
       <div className="doctor-card-main">
@@ -70,6 +67,12 @@ export default function DoctorCard({ doctor, isSelected, onSelectDoctor }) {
           type="button"
           disabled={!doctor.available}
           onClick={handleSelect}
+          aria-pressed={isSelected}
+          aria-label={
+            doctor.available
+              ? `${isSelected ? 'Selected' : 'Select'} ${doctor.name}, ${doctor.department}`
+              : `${doctor.name} is currently not available`
+          }
           className={`btn-doctor-select ${isSelected ? 'is-selected' : ''}`}
         >
           {/* // [REQ-2] [REQ-2a] Ternary operator:
