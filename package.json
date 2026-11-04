@@ -1,7 +1,26 @@
 {
-  "name": "medicare-dashboard",
-  "private": true,
+  "name": "medicare-clinic-dashboard",
   "version": "1.0.0",
+  "private": true,
+  "description": "MediCare Clinic — High-performance clinical front-desk appointment management dashboard built with React 19 and Vite.",
+  "author": "Bipronath Saha <bipronathsaha@gmail.com> (https://github.com/BipronathSaha12)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BipronathSaha12/MediCare-Clinic.git"
+  },
+  "homepage": "https://bipronathsaha12.github.io/MediCare-Clinic/",
+  "keywords": [
+    "react",
+    "react19",
+    "vite",
+    "dashboard",
+    "healthcare",
+    "clinic-management",
+    "appointment-scheduler",
+    "a11y",
+    "wcag21-aa"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -17,4 +36,3 @@
     "vite": "^6.0.7"
   }
 }
-
